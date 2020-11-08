@@ -18,5 +18,10 @@ jobs:
           aws-region: ap-northeast-1
       - name: S3 sync
         working-directory: ./
-        run: aws s3 sync . s3://tousualab1.jp --exclude ".git/*" --exclude ".github/*" --exclude ".idea/*"
+        run: |
+          aws s3 sync . s3://tousualab1.jp \
+            --exclude ".git/*" --exclude ".github/*" --exclude ".idea/*"
+          aws cloudfront create-invalidation \
+            --distribution-id E1H6FVTT9EZI09 \
+            --paths "/*"
  
